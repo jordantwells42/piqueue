@@ -4,10 +4,12 @@ import { trpc } from "../utils/trpc";
 import { useTaskStore } from "./../hooks"
 import TaskCard from "../components/taskcard";
 import { Task } from "./../hooks";
-import Modal from "../components/modal";
 import { useEffect, useState } from "react";
 import NewTask from "../components/newtask";
+import { importanceToColor } from "../utils/colors";
 const { DateTime, Duration} = require("luxon");
+import { parseInput } from "../utils/nlp";
+import { nanoid } from 'nanoid';
 
 const Home: NextPage = () => {
   const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
@@ -17,19 +19,17 @@ const Home: NextPage = () => {
 
   function addDummyTask(){
     const exampleTask:Task= {
-      id: tasks.length,
+      id: nanoid(),
       title: "Example Task",
       description: "This is an example task",
-      status: "todo",
-      createdAt: DateTime.now(),
-      deadline: "later",
-      duration: "1h",
+      start: DateTime.now(),
+      end: DateTime.now().plus({days: 14}),
+      duration: Duration.fromObject({days: 7}),
       priority: 1,
-      progress: 0
+      progress: 0.0
     }
     addTask(exampleTask);
   }
-
   return (
     <>
       <Head>
@@ -40,6 +40,7 @@ const Home: NextPage = () => {
       <div id="portal-out">
       <div style={{filter: modalOpen?"brightness(0.4)":"brightness(1.0)"}} className="w-screen bg-slate-700 gap-5 text-white border-white min-h-screen flex flex-col justify-center items-center p-4 overflow-y-scroll">
         <h1 className="text-4xl font-bold">Hello World</h1>
+        <div className="h-20 w-full flex flex-row">{[0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05].map(score => (<div key={score} className={importanceToColor(score) + " h-30 w-full"}></div>))}</div>
         <div className="w-3/4 flex flex-row flex-wrap">{tasks.map(task => <TaskCard key={task.id} id={task.id}/>)}</div>
         <button onClick={addDummyTask}>Add task</button>
         <NewTask setOpen={setModalOpen} />

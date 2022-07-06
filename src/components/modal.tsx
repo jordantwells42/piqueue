@@ -6,12 +6,14 @@ export default function Modal ({
   children,
   button,
   setOpen,
-  onSubmit
+  onSubmit,
+  clearState
 }: {
   button?: JSX.Element
   children: JSX.Element
   setOpen: (open: boolean) => void
-  onSubmit?: () => void
+  onSubmit?: () => void,
+  clearState?: () => void
 }) {
 
 
@@ -34,14 +36,14 @@ export default function Modal ({
                 <div className='rounded-b-2xl w-full h-auto bg-slate-100 flex font-bold flex-row justify-end text-white'>
                   <button
                     className='rounded-2xl p-2 m-2  bg-slate-400'
-                    onClick={closePortal}
+                    onClick={() => [closePortal(), clearState && clearState()]} 
                   >
                     Close me
                   </button>
                   {onSubmit && (
                     <button
                       className='rounded-2xl p-2 m-2 bg-blue-400'
-                      onClick={() => [onSubmit(), closePortal()]}
+                      onClick={() => [onSubmit(), clearState && clearState(), closePortal()]}
                     >
                       Submit
                     </button>

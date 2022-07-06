@@ -1,17 +1,26 @@
 import create from 'zustand'
 const { DateTime, Duration} = require("luxon");
+import { nanoid } from 'nanoid'
+import { z } from 'zod';
+import datetime, { RRule, RRuleSet, rrulestr } from 'rrule'
 
-export type Task = {
-    id: number,
-    title: string,
-    description: string,
-    status: "todo" | "in-progress" | "done",
-    createdAt: typeof DateTime,
-    deadline: typeof DateTime,
-    duration: typeof Duration,
-    priority: number,
-    progress: number
+function clamp(n: number, min: number, max: number){
+    return Math.max(min, Math.min(max, n));
 }
+
+export const TaskSchema = z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string().default(""),
+    start: z.instanceof(DateTime).default(DateTime.now()),
+    end: z.instanceof(DateTime),
+    duration: z.instanceof(Duration).default(Duration.fromObject({days: 1})),
+    priority: z.number().transform(n => clamp(n, 0, 1)).default(0.5),
+    progress: z.number().transform(n => clamp(n, 0, 1)).default(0),
+    recurrence: z.optional(z.instanceof(datetime)),
+})
+
+export type Task = z.infer<typeof TaskSchema>
 
 export type Event = {
     id: number,
@@ -24,29 +33,31 @@ export type Event = {
 type TaskState = {
     tasks: Task[]
     addTask: (task: Task) => void
-    deleteTask: (id: number) => void
+    deleteTask: (id: string) => void
     updateTask: (task: Task) => void
-    getTask: (id: number) => Task | undefined
+    getTask: (id: string) => Task | undefined
 }
 
 export const useTaskStore=create<TaskState>((set, get) => ({
     tasks: [],
     addTask: (task: Task) => {
+        const validatedTask = TaskSchema.parse(task)
         set(state => ({
-            tasks: [...state.tasks, task]
+            tasks: [...state.tasks, validatedTask]
         }))
     },
-    deleteTask: (taskId: number) => {
+    deleteTask: (taskId: string) => {
         set(state => ({
             tasks: state.tasks.filter(task => task.id !== taskId)
         }))
     },
     updateTask: (task: Task) => {
+        const validatedTask = TaskSchema.parse(task)
         set(state => ({
-            tasks: state.tasks.map(t => t.id === task.id ? task : t)
+            tasks: state.tasks.map(t => t.id === validatedTask.id ? validatedTask : t)
         }))
     },
-    getTask: (id: number) => { 
+    getTask: (id: string) => { 
         return get().tasks.find(task => task.id === id)
     }
 }));
