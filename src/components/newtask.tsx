@@ -10,7 +10,7 @@ export default function NewTask ({
   setOpen: (open: boolean) => void
 }) {
   const addTask = useTaskStore(state => state.addTask)
-  const [task, setTask] = useState<Task | undefined>({} as Task)
+  const [task, setTask] = useState<Task | undefined>(undefined)
   const [strInput, setStrInput] = useState<string>('')
 
   const newTaskButton = (
@@ -55,7 +55,7 @@ export default function NewTask ({
               <h2>{task.description}</h2>
               <h3>{task.start && task.start.toLocaleString()}</h3>
               <h3>{task.end && task.end.toLocaleString()}</h3>
-              <h3>{task.duration && task.duration.toISO()}</h3>
+              <h3>{task.duration && JSON.stringify(task.duration.toObject())}</h3>
               <h3>{task.progress}</h3>
               <h3>{task.priority}</h3>
               <h3>{task.recurrence && task.recurrence?.toText()}</h3>

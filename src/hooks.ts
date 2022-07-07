@@ -12,11 +12,11 @@ export const TaskSchema = z.object({
     id: z.string(),
     title: z.string(),
     description: z.string().default(""),
-    start: z.instanceof(DateTime).default(DateTime.now()),
+    start: z.instanceof(DateTime),
     end: z.instanceof(DateTime),
-    duration: z.instanceof(Duration).default(Duration.fromObject({days: 1})),
     priority: z.number().transform(n => clamp(n, 0, 1)).default(0.5),
     progress: z.number().transform(n => clamp(n, 0, 1)).default(0),
+    duration: z.optional(z.instanceof(Duration)),
     recurrence: z.optional(z.instanceof(datetime)),
 })
 

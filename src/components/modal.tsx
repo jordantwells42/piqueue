@@ -24,7 +24,6 @@ export default function Modal ({
       {({ openPortal, closePortal, isOpen, portal }) => (
         <>
           {setOpen(isOpen)}
-          {console.log(isOpen, "LMAO")}
           <div onClick={openPortal}>
             {button ? button : <button>Open Modal</button>}
           </div>
