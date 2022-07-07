@@ -63,7 +63,7 @@ export default function TaskCard ({ id }: { id: string }) {
         <p className='w-full bg-slate-400 text-center'>Loading...</p>
       ) : (
         <div className='w-full flex flex-col'>
-          <h1 className='border-b-4 border-slate-900 w-full font-bold text-center p-2 text-2xl'>
+          <h1 className='border-b-2 border-slate-900 w-full font-bold text-center p-2 text-2xl'>
             {task.title}
           </h1>
           <div className=' w-full p-5 flex flex-col items-center justify-between pt-5 pb-3 '>
