@@ -35,7 +35,7 @@ export default function NewTask ({
       button={newTaskButton}
       setOpen={setOpen}
     >
-      <div className='w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
+      <div className='overflow-y-scroll scrollbar-hide w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
         <h1 className='text-2xl font-bold'>New Task</h1>
         <p className='italic'>Create new tasks <b className="text-blue-400">every</b> day, <b className='text-red-400'>takes</b> 5 seconds</p>
         <div className='w-full h-full flex flex-col justify-start items-center'>

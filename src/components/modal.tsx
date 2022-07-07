@@ -28,7 +28,7 @@ export default function Modal ({
             {button ? button : <button>Open Modal</button>}
           </div>
           {portal(
-            <div className='fixed top-0 text-sm md:text-base w-full min-h-[50%] max-h-[100%] overflow-y-scroll md:top-1/2 md:left-1/2 md:w-96 md:h-96 md:-mt-48 md:-ml-48'>
+            <div className='fixed top-0 text-sm md:text-base w-full min-h-[50%] max-h-[75%]  md:top-1/2 md:left-1/2 md:w-96 md:h-96 md:-mt-48 md:-ml-48'>
               <div className='w-full h-full bg-slate-100 rounded-t-2xl flex flex-col justify-start md:justify-center items-center'>
                 {children}
               </div>

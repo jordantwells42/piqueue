@@ -55,7 +55,7 @@ export default function TaskCard ({ id }: { id: string }) {
     <div
       className={
         importanceToColor(task.progress) +
-        ' w-full  aspect-[0.7143] m-2  md:w-full md:min-h-48 md:aspect-auto rounded-xl border-4 md:border-8 border-slate-900 flex flex-col justify-content items-center text-slate-900 font-mono'
+        ' w-full  aspect-[0.7143] m-2 md:w-full md:min-h-48 md:aspect-auto rounded-xl border-4 md:border-8 border-slate-900 flex flex-col justify-content items-center text-slate-900 font-mono'
       }
     >
       {!task ? (
