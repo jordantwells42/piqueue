@@ -25,7 +25,7 @@ export const TaskSchema = z.object({
     .number()
     .transform(n => clamp(n, 0, 1))
     .default(0),
-  duration: z.instanceof(Duration).default(Duration.fromObject({ minutes: 0 })),
+  duration: z.instanceof(Duration).default(undefined).nullish(),
   recurrence: z.optional(z.instanceof(datetime))
 })
 
@@ -71,7 +71,7 @@ function serialize(tasks: Task[]):string {
             ...rest,
             start: start.toJSDate(),
             end: end.toJSDate(),
-            duration: duration.toISO(),
+            duration: duration? duration.toISO(): undefined,
             recurrence: task.recurrence?.toString()
         }
     })

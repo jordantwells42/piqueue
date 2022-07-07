@@ -31,8 +31,8 @@ export default function Timeline ({
     balancePercent = 100 - progressPercent
   }
   return (
-    <div className='flex flex-col w-full h-20 justify-end items-center text-sm md:text-base gap-2 md:gap-4 font-bold'>
-      <div className='flex flex-row justify-between text-center gap-20 px-5'>
+    <div className='flex flex-col w-full justify-end items-center text-sm md:text-base gap-2 md:gap-4 font-bold'>
+      <div className='flex flex-row w-full md:w-3/4 justify-between text-center items-center text-black font-bold'>
         <h1 className=' text-left'>
           {start.toLocaleString({
             month: 'short',
@@ -42,6 +42,9 @@ export default function Timeline ({
             hourCycle: 'h23'
           })}
         </h1>
+        <div className="w-1/4 m-2 h-0 border-b-2 border-white"></div>
+        {<h1 className="text-black font-bold text-center ">{Math.round(progress*100)}%</h1>}
+        <div className="w-1/4 m-2 h-0 border-b-2 border-white"></div>
         <h1 className='text-right'>
           {end.toLocaleString({
             month: 'short',
@@ -52,11 +55,11 @@ export default function Timeline ({
           })}
         </h1>
       </div>
-        <div className='w-5/6 h-10 flex border-4 border-slate-900 rounded-full p-1 flex-row bg-white bg-opacity-40'>
+        <div className='w-full h-10 flex border-4 border-slate-900 rounded-full p-1 flex-row bg-white bg-opacity-40'>
           <div
             style={{ width: `${progressPercent}%` }}
             className={`h-full rounded-full border-[3px] border-slate-900  bg-black bg-opacity-60 flex justify-center items-center`}
-          >{progress > 0.2 && <h1 className="text-white text-center "> {Math.round(progress*100)}%</h1>}</div>
+          ></div>
           {duration && durationPercent > 0.01 && (
             <div
               style={{ width: `${durationPercent}%` }}

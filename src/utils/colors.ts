@@ -1,5 +1,5 @@
 export function importanceToColor(score: number){
-    const colors = ["bg-emerald-300", "bg-green-300" , "bg-lime-200", "bg-yellow-200", "bg-orange-300", "bg-rose-300", "bg-red-400", "bg-fuchsia-400", "bg-purple-500", "bg-violet-500", "bg-indigo-500"];
+    const colors = ["bg-emerald-400", "bg-green-400" , "bg-lime-400", "bg-yellow-400", "bg-orange-400", "bg-rose-400", "bg-red-400", "bg-fuchsia-400", "bg-purple-400", "bg-violet-400", "bg-indigo-400"];
     return colors[Math.floor(score*10)];
 }
 
