@@ -43,7 +43,7 @@ export default function Timeline ({
           })}
         </h1>
         <div className="w-1/4 m-2 h-0 border-b-2 border-white"></div>
-        {<h1 className="text-black font-bold text-center ">{Math.round(progress*100)}%</h1>}
+        {<h1 className="text-white font-bold text-center ">{Math.round(progress*100)}%</h1>}
         <div className="w-1/4 m-2 h-0 border-b-2 border-white"></div>
         <h1 className='text-right'>
           {end.toLocaleString({
