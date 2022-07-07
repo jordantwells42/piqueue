@@ -19,7 +19,6 @@ const Home: NextPage = () => {
   const hasHydrated = useHasHydrated()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const addTask = useTaskStore(state => state.addTask);
-  const saveTasks = useTaskStore(state => state.saveTasks);
 
   function addDummyTask(){
     const exampleTask:Task= {
@@ -48,7 +47,6 @@ const Home: NextPage = () => {
         {hasHydrated && <div className="w-3/4 flex flex-row items-center justify-center flex-wrap">{tasks.map(task => <TaskCard key={task.id} id={task.id}/>)}</div>}
         {hasHydrated &&<button onClick={addDummyTask}>Add task</button>}
         {hasHydrated && <NewTask setOpen={setModalOpen} />}
-        <button onClick={saveTasks}>Save</button>
       </div>
       </div>
       

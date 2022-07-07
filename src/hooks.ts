@@ -59,7 +59,6 @@ type TaskState = {
   deleteTask: (id: string) => void
   updateTask: (task: Task) => void
   getTask: (id: string) => Task | undefined,
-  saveTasks: () => void
 }
 
 
@@ -72,7 +71,7 @@ function serialize(tasks: Task[]):string {
             ...rest,
             start: start.toJSDate(),
             end: end.toJSDate(),
-            duration: duration.toObject(),
+            duration: duration.toISO(),
             recurrence: task.recurrence?.toString()
         }
     })
@@ -130,26 +129,27 @@ export const useTaskStore = create<TaskState>()(
         set(state => ({
           tasks: [...state.tasks, validatedTask]
         }))
+        save(get().tasks)
       },
-      deleteTask: (taskId: string) => {
+      deleteTask: (taskId: string) => {        
         set(state => ({
           tasks: state.tasks.filter(task => task.id !== taskId)
         }))
+        save(get().tasks)
       },
       updateTask: (task: Task) => {
         const validatedTask = TaskSchema.parse(task)
+        
         set(state => ({
           tasks: state.tasks.map(t =>
             t.id === validatedTask.id ? validatedTask : t
           )
         }))
+        save(get().tasks)
       },
       getTask: (id: string) => {
         return TaskSchema.parse(get().tasks.find(task => task.id === id))
       },
-      saveTasks: () => {
-        save(get().tasks)
-      }
     }),
   
 )
