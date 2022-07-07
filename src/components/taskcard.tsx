@@ -15,9 +15,9 @@ export default function TaskCard ({ id }: { id: string }) {
   const [task, setTask] = useState<Task | null>(null)
 
   useEffect(() => {
-    const task = getTask(id)
-    if (!task) throw 'task with that id does not exist'
-    setTask(task)
+    const gotTask = getTask(id)
+    if (!gotTask) throw 'task with that id does not exist'
+    setTask(gotTask)
   }, [id, getTask])
 
   function handleAdd () {
@@ -41,7 +41,8 @@ export default function TaskCard ({ id }: { id: string }) {
     deleteTask(task.id)
   }
 
-  if (!task) return <p>Loading...</p>
+  if (!task) {return <p>Loading...</p>}
+
 
   return (
     <div
@@ -50,30 +51,27 @@ export default function TaskCard ({ id }: { id: string }) {
         ' w-96 aspect-[0.7143] rounded-xl border-4 md:border-8 border-slate-900 flex flex-col justify-content items-center text-slate-900 font-mono'
       }
     >
-      {!task ? <p className='w-full h-full bg-slate-400 text-center'>Loading...</p> : 
-      <div>
+      {!task ? (<p className='w-full h-full bg-slate-400 text-center'>Loading...</p>) : 
+      <div className="w-full h-full flex flex-col">
       <h1 className='border-b-4 border-slate-900 w-full font-bold text-center p-2 text-2xl'>
         {task.title}
       </h1>
-      <div className=' w-full h-full border-slate-900 flex flex-col items-center justify-start pt-10 '>
-        
-        <h1>{Math.round(task.progress*100)}%</h1>
-        <h2>{task.start.toLocaleString()}</h2>
-        <h2>{task.recurrence && task.recurrence?.toText()}</h2>
+      <div className=' w-full h-full flex flex-col items-center justify-between py-5 '>
+        <h2 className="italic">{task.recurrence && task.recurrence.toText()}</h2>
         <Timeline 
             end={task.end}
             start={task.start}
             duration={task.duration}
             progress={task.progress}/>
           <div className="flex-row justify-center items-end">
-        <button onClick={handleAdd} className='border-slate-900 border-2 m-1 p-1'>
-          Update Progress
+        <button onClick={handleAdd} className='rounded border-slate-900 border-2 m-1 p-1'>
+          Progress
         </button>
-        <button onClick={handleDelete} className='border-slate-900 border-2 m-1 p-1'>
-          Delete Me
+        <button onClick={handleDelete} className='rounded border-slate-900 border-2 m-1 p-1'>
+          Delete
         </button>
-        <button onClick={handleFinish} className='border-slate-900 border-2 m-1 p-1'>
-          Finish Me (senpai)
+        <button onClick={handleFinish} className='rounded border-slate-900 border-2 m-1 p-1'>
+          Finish
         </button>
         </div>
         </div>

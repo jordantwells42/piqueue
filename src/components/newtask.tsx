@@ -14,7 +14,7 @@ export default function NewTask ({
   const [strInput, setStrInput] = useState<string>('')
 
   const newTaskButton = (
-    <button className='rounded-2xl p-2 m-2 bg-blue-400'>New Task</button>
+    <button className='rounded-2xl p-2 m-2 bg-blue-500'>New Task</button>
   )
 
   function handleSubmit () {
@@ -35,30 +35,21 @@ export default function NewTask ({
       button={newTaskButton}
       setOpen={setOpen}
     >
-      <div className='p-2 m-2'>
-        <h1>New Task</h1>
-        <div className='flex flex-col gap-2 justify-content items-center'>
-          {/*<input
-            value={task?.title}
-            onChange={e => setTask({ ...task, title: e.target.value })}
-            placeholder='Task...'
-          />
-          <input
-            value={task?.description}
-            onChange={e => setTask({ ...task, description: e.target.value })}
-            placeholder='Description...'
-          />*/}
-          <input value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="Do taxes"></input>
+      <div className='w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
+        <h1 className='text-2xl font-bold'>New Task</h1>
+        <p className='italic'>Create new tasks <b className="text-blue-400">every</b> day, <b className='text-red-400'>takes</b> 5 seconds</p>
+        <div className='w-full h-full flex flex-col justify-start items-center'>
+          <input className="border-slate-500 border-2 block w-5/6 p-2 rounded-xl" value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="..."></input>
           {task && 
-            <div>
-              <h1>{task.title}</h1>
-              <h2>{task.description}</h2>
-              <h3>{task.start && task.start.toLocaleString()}</h3>
-              <h3>{task.end && task.end.toLocaleString()}</h3>
-              <h3>{task.duration && JSON.stringify(task.duration.toObject())}</h3>
-              <h3>{task.progress}</h3>
-              <h3>{task.priority}</h3>
-              <h3>{task.recurrence && task.recurrence?.toText()}</h3>
+            <div className="text-left p-2">
+              <h1><b>Title</b>: {task.title}</h1>
+              <h2><b>Desc</b>: {task.description}</h2>
+              <h3><b>Start</b>: {task.start && task.start.toLocaleString()}</h3>
+              <h3><b>End</b>: {task.end && task.end.toLocaleString()}</h3>
+              <h3><b>Duration</b>: {task.duration && JSON.stringify(task.duration.toObject())}</h3>
+              <h3><b>Progress</b>: {task.progress}</h3>
+              <h3><b>Priority</b>: {task.priority}</h3>
+              <h3><b>Recurrence</b>: {task.recurrence && task.recurrence?.toText()}</h3>
             </div>
           }
         </div>

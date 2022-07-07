@@ -24,6 +24,8 @@ export function parseInput (str: string): Task | undefined {
 
   if (recurrenceOpts) {
     task.recurrence = new RRule({ ...recurrenceOpts })
+  } else {
+    task.recurrence = undefined
   }
 
   if (out.length === 0) {
@@ -101,15 +103,7 @@ function parseDuration (str: string): typeof Duration {
     'month',
     'year'
   ]
-  const durationObj: any = {
-    seconds: 0,
-    minutes: 0,
-    hours: 0,
-    days: 0,
-    weeks: 0,
-    months: 0,
-    years: 0
-  }
+  const durationObj: any = {}
 
   const durationRE = new RegExp(`(takes)(.+?)(${keywords.join('|')}|$)+?`, 'i')
   const durationMatch = durationRE.exec(str) as RegExpExecArray

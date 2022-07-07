@@ -7,7 +7,7 @@ export default function Timeline ({
   start = DateTime.now()
 }: {
   end: typeof DateTime
-  duration?: typeof Duration
+  duration?: typeof Duration | undefined
   progress: number
   start?: typeof DateTime
 }) {
