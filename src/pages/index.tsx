@@ -10,11 +10,12 @@ import { importanceToColor } from '../utils/colors'
 const { DateTime, Duration } = require('luxon')
 import { parseInput } from '../utils/nlp'
 import { nanoid } from 'nanoid'
-import { useHasHydrated } from '../hooks'
+import TaskStack from '../components/taskstack'
+
 
 const Home: NextPage = () => {
-  const tasks = useTaskStore(state => state.tasks)
-  const hasHydrated = useHasHydrated()
+
+  
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const addTask = useTaskStore(state => state.addTask)
 
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
       </Head>
       <div
         style={{ filter: modalOpen ? 'brightness(0.4)' : 'brightness(1.0)' }}
-        className='w-screen min-h-screen flex flex-col justify-center items-center p-4 gap-5 overflow-y-scroll
+        className='w-screen min-h-screen flex flex-col justify-center items-center p-4 py-5 overflow-y-scroll
         bg-slate-700 text-white border-white'
       >
         <h1 className='text-4xl font-bold'>Tasks</h1>
@@ -48,13 +49,7 @@ const Home: NextPage = () => {
         <NewTask setOpen={setModalOpen} />
         {/*<div className="h-20 w-full flex flex-row">{[0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05].map(score => (<div key={score} className={importanceToColor(score) + " h-30 w-full"}><p className="text-white">White</p><p className="text-black">Black </p></div>))}</div>
          */}
-        {hasHydrated && (
-          <div className='w-5/6 flex flex-row items-center justify-center flex-wrap'>
-            {tasks.map(task => (
-              <TaskCard key={task.id} id={task.id} />
-            ))}
-          </div>
-        )}
+        <TaskStack />
       </div>
     </>
   )

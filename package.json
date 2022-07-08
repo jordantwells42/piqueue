@@ -25,6 +25,7 @@
     "react-dom": "18.2.0",
     "react-portal": "^4.2.2",
     "react-query": "^3.39.1",
+    "react-spring": "^9.4.5",
     "rrule": "^2.7.0",
     "superjson": "^1.9.1",
     "tailwind-scrollbar-hide": "^1.1.7",
