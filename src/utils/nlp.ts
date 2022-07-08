@@ -62,9 +62,9 @@ export function parseInput (str: string): Task | undefined {
   if (duration) {
     task.duration = duration
   }
-
+  task.title = task.title.trim()
   task.id = nanoid()
-  task.description = str
+  task.description = str.trim()
   return TaskSchema.parse(task)
 }
 

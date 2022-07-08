@@ -44,8 +44,8 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
         }
       >
         <div className='w-full flex flex-col'>
-          <div className='border-b-4 border-slate-900 w-full font-bold text-center'>
-            <h1 className='p-2 text-2xl max-w-prose'>{task.title}</h1>
+          <div className='border-b-4 border-slate-900 w-full flex flex-row justify-center items-center font-bold text-center'>
+            <h1 className='p-2 text-2xl text-center max-w-prose'>{task.title}</h1>
           </div>
           <div className=' w-full p-5 flex flex-col items-center justify-between pt-5 pb-3 '>
             <h2 className='italic h-10'>
