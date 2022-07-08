@@ -1,28 +1,35 @@
 import {useRanger} from 'react-ranger'
 import { useState } from 'react';
+import { importanceToColor } from '../utils/colors';
 
-export default function Slider(){
-    const [values, setValues] = useState([10])
-    const { getTrackProps, handles } = useRanger({
+export default function Slider({value, setValue}: {value: number, setValue: (arg0: number) => void}){
+    const [values, setValues] = useState([0.1])
+    const { getTrackProps, ticks, segments, handles } = useRanger({
         values,
-        onChange: setValues,
+        onChange: handleDrag,
+        onDrag: handleDrag,
         min: 0,
-        max: 100,
-        stepSize: 5,
+        max: 1,
+        stepSize: 0.005,
       })
-     
+
+      function handleDrag(vals: number[]){
+        setValues(vals)
+        if (vals.length >= 1) { setValue(vals[0] as number) }
+      }
+
       return (
-        <>
-          <div className='w-full'
+        <div className='flex flex-col py-3 items-center justify-center'>
+          <h1>Priority: </h1>
+          <div className='border-2 border-slate-900 rounded-full h-3 w-full'
             {...getTrackProps({
               style: {
-                height: '4px',
-                background: '#ddd',
-                boxShadow: 'inset 0 1px 2px rgba(0,0,0,.6)',
-                borderRadius: '2px',
               },
             })}
           >
+            {segments.map(({ getSegmentProps }, idx) => (
+              <div  {...getSegmentProps()} key ={idx} className={(idx == 0 ? importanceToColor((values[0] as number)) : "") + ' h-2 rounded-full w-5/6'}></div>
+            ))}
             {handles.map(({ getHandleProps }, idx) => (
               <div className='w-full'
                 {...getHandleProps({
@@ -38,6 +45,6 @@ export default function Slider(){
               />
             ))}
           </div>
-        </>
+        </div>
       )
 }

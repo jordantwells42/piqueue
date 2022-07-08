@@ -121,7 +121,11 @@ function parseDuration (str: string): typeof Duration {
         ) as number
       }
     })
+    if (Object.keys(durationObj).length === 0){
+      return undefined
+    } else {
     return Duration.fromObject(durationObj)
+    }
   } else {
     return undefined
   }

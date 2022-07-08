@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Task, useTaskStore } from '../hooks'
+import { Task, useTaskStore, TaskSchema } from '../hooks';
 import { parseInput } from '../utils/nlp'
 import Modal from './modal'
 import Slider from './slider';
@@ -21,12 +21,22 @@ export default function NewTask ({
 
   function handleSubmit () {
     console.log('submitting')
-    if (task) {addTask(task)}
+    if (task) {
+      const toAddTask = TaskSchema.parse({...task, priority: priorityInput})
+      addTask(toAddTask)
+    }
   }
 
   function clearState(){
     setTask(undefined)
     setStrInput("")
+    setPriorityInput(0.2)
+  }
+
+  function updateTaskWithPriority(){
+    setTask((ptask)=>{
+      return TaskSchema.parse({...ptask, priority: priorityInput})
+    })
   }
 
 
@@ -43,8 +53,13 @@ export default function NewTask ({
         <div className='w-full h-full flex flex-col justify-start items-center'>
           <input className="border-slate-500 border-2 block w-5/6 p-2 rounded-xl" value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="..."></input>
           {task && 
-            <div className="w-full p-2">
-              <Slider />
+            <div className="w-5/6 p-2 flex-col flex justify-center text-left">
+              <Slider value = {priorityInput} setValue={setPriorityInput}/>
+              
+              <h1><b>Title:</b> {task.title}</h1>
+              <h2><b>From:</b> {task.start ? task.start.toLocaleString() : "Now"} to {task.end.toLocaleString()}</h2>
+              {task.recurrence && <h2><b>Recurring:</b> {task.recurrence.toText()}</h2>}
+              {task.duration && <h2><b>Duration:</b> {task.duration.toHuman()}</h2>}
             </div>
           }
         </div>

@@ -39,7 +39,7 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
       <div
         className={
           importanceToColor(importance) +
-          ' w-full max-w-4xl aspect-[0.7143] m-2 md:w-full md:min-h-96 md:aspect-auto rounded-xl ' +
+          ' w-full max-w-4xl aspect-[0.7143] m-2 md:w-full md:min-h-96 h-auto md:aspect-auto rounded-xl ' +
           ' border-4 border-slate-900 flex flex-col justify-content items-center text-slate-900 font-mono'
         }
       >
@@ -48,12 +48,13 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
             <h1 className='p-2 text-2xl max-w-prose'>{task.title}</h1>
           </div>
           <div className=' w-full p-5 flex flex-col items-center justify-between pt-5 pb-3 '>
-            <h2 className='italic'>
-              {task.recurrence && task.recurrence.toText()}
+            <h2 className='italic h-10'>
+              {task.recurrence ? task.recurrence.toText() : "single time"}
             </h2>
             <DateRange id={task.id} />
             <Timeline id={task.id} />
             <Buttons id={task.id} />
+            <h1>Priority: {Math.round(task.priority* 100)}</h1>
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ export default function Buttons({id}:{id:string}){
     
       function handleAdd () {
         if (!task) throw 'cannot update nonexistant task'
-        const newTask = TaskSchema.parse({ ...task, progress: task.progress + 0.1 })
+        const newTask = TaskSchema.parse({ ...task, progress: task.progress + 0.05 })
         setTask(newTask)
         updateTask(newTask)
       }
