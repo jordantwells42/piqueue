@@ -14,8 +14,8 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
 
   const styles = useSpring({
     to: { marginTop: Math.min(idx, 2) * 50, zIndex: 3 - Math.min(idx, 2) },
-    from: { marginTop: 1000, zIndex: 3 - Math.min(idx, 2) },
-    config: config.gentle
+    from: { marginTop: -1000, zIndex: 3 - Math.min(idx, 2) },
+    config: config.wobbly
   })
 
 
@@ -35,7 +35,7 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   return (
     <animated.div
       style={styles}
-      className='absolute w-full h-full flex flex-row justify-center items-center'
+      className='absolute w-full h-full flex flex-col justify-start items-center'
       key={task.id}
     >
       <div

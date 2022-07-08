@@ -8,7 +8,7 @@ export default function TaskStack () {
   return (
     <>
       {hasHydrated && (
-        <div className='w-5/6 relative h-full py-48 flex flex-row items-center justify-center flex-wrap'>
+        <div className='w-3/4 h-full flex flex-col relative top-0 items-center justify-center flex-wrap'>
           {tasks.map((task, idx) => (
             <TaskCard key={task.id} id={task.id} idx={idx} />
           ))}

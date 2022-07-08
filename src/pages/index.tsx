@@ -41,15 +41,18 @@ const Home: NextPage = () => {
       </Head>
       <div
         style={{ filter: modalOpen ? 'brightness(0.4)' : 'brightness(1.0)' }}
-        className='w-screen min-h-screen flex flex-col justify-center items-center p-4 py-5 overflow-y-scroll
+        className='w-screen h-screen flex flex-col justify-start items-center py-10 overflow-y-scroll
         bg-slate-700 text-white border-white'
       >
         <h1 className='text-4xl font-bold'>Tasks</h1>
-        <button onClick={addDummyTask}>Add task</button>
-        <NewTask setOpen={setModalOpen} />
+        
         {/*<div className="h-20 w-full flex flex-row">{[0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05].map(score => (<div key={score} className={importanceToColor(score) + " h-30 w-full"}><p className="text-white">White</p><p className="text-black">Black </p></div>))}</div>
          */}
         <TaskStack />
+        <div className="flex flex-col items-center justify-center">
+        <button onClick={addDummyTask}>Add task</button>
+        <NewTask setOpen={setModalOpen} />
+        </div>
       </div>
     </>
   )
