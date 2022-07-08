@@ -12,6 +12,13 @@ import { parseInput } from '../utils/nlp'
 import { nanoid } from 'nanoid'
 import TaskStack from '../components/taskstack'
 
+/*
+TODO:
+
+Swipeable components using useGesture and react-spring
+Ignore task (temporary importance detriment....?, (add as property, resort with detriment, whenever stored make sure to get rid of detriment...?))
+
+*/
 
 const Home: NextPage = () => {
 
