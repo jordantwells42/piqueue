@@ -52,7 +52,7 @@ const Home: NextPage = () => {
          */}
         <TaskStack />
         
-        <button className='fixed bottom-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={addDummyTask}>Example task</button>
+        <button className='fixed bottom-16 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={addDummyTask}>Example task</button>
         <NewTask setOpen={setModalOpen} />
         
         

@@ -33,7 +33,7 @@ export default function TaskStack () {
         </div>
         
       )}
-      <button className='fixed left-5 bottom-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={handleSort}>Sort Tasks</button>
+      <button className='fixed left-5 bottom-16 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={handleSort}>Sort Tasks</button>
     </>
   )
 }
