@@ -32,7 +32,7 @@ const Home: NextPage = () => {
     }
     addTask(exampleTask)
   }
-  //<button className='fixed bottom-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={() => sortTasks("s")}>Sort</button>
+  //
   return (
     <>
       <Head>
