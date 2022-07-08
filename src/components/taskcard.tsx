@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useTaskStore, TaskSchema } from '../hooks'
+import { useTaskStore, TaskSchema, useImportance } from '../hooks'
 import { Task } from '../hooks'
 import { importanceToColor } from '../utils/colors'
 import Timeline from './timeline'
@@ -10,8 +10,9 @@ import { useSpring, animated, config } from 'react-spring'
 
 export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   const getTask = useTaskStore(state => state.getTask)
-  const [apidx, setApidx] = useState(idx)
-
+  const task = getTask(id)
+  const importance = useImportance(id)
+  console.log("hello?", importance)
   const stackSize = 3
 
   const styles = useSpring({
@@ -20,15 +21,10 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
     config: config.wobbly
   })
 
-
-
-  const [task, setTask] = useState<Task | null>(null)
-
   useEffect(() => {
     const gotTask = getTask(id)
     if (!gotTask) throw 'task with that id does not exist'
-    setTask(gotTask)
-  }, [id, getTask])
+  }, [id, getTask, importance])
 
   if (!task) {
     return <p>Loading...</p>
@@ -37,12 +33,12 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   return (
     <animated.div
       style={styles}
-      className='absolute  w-full h-auto flex flex-col justify-start items-center'
+      className='absolute w-full h-auto flex flex-col justify-start items-center'
       key={task.id}
     >
       <div
         className={
-          importanceToColor(task.progress) +
+          importanceToColor(importance) +
           ' w-full max-w-4xl aspect-[0.7143] m-2 md:w-full md:min-h-96 md:aspect-auto rounded-xl ' +
           ' border-4 border-slate-900 flex flex-col justify-content items-center text-slate-900 font-mono'
         }

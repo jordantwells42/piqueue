@@ -1,9 +1,23 @@
-import { useHasHydrated, useTaskStore } from '../hooks'
+import { useHasHydrated, useTaskStore, useImportance } from '../hooks';
 import TaskCard from './taskcard'
+import { useEffect } from 'react';
 
 export default function TaskStack () {
-  const tasks = useTaskStore(state => state.tasks)
+  let sortTasks = useTaskStore(state => state.sortTasks)
+  let tasks = useTaskStore(state => state.tasks)
   const hasHydrated = useHasHydrated()
+
+  useEffect(() => {
+    sortTasks("lmao")
+  }, [tasks])
+
+  function handleSort(){
+    sortTasks("lmao")
+  }
+  
+  if (!tasks) { return <p> Whoops </p>}
+
+ //<button className='fixed bottom-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={handleSort}>Sort Tasks</button>
 
   return (
     <>
@@ -13,7 +27,9 @@ export default function TaskStack () {
             <TaskCard key={task.id} id={task.id} idx={idx} />
           ))}
         </div>
+        
       )}
+      
     </>
   )
 }

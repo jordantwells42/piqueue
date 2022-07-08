@@ -7,7 +7,7 @@ import datetime, { Options, RRule, RRuleSet, rrulestr } from 'rrule'
 import { useState, useEffect } from 'react'
 import superjson from 'superjson'
 
-function clamp (n: number, min: number, max: number) {
+function clamp (n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, n))
 }
 
@@ -62,7 +62,19 @@ type TaskState = {
   deleteTask: (id: string) => void
   updateTask: (task: Task) => void
   getTask: (id: string) => Task | undefined
-  getTaskStats: (id: string) => { progress: number, durationPercent: number, progressPercent: number, balancePercent: number, durationExists: boolean } | undefined
+  sortTasks: (method: string) => void
+  getTaskStats: (
+    id: string
+  ) =>
+    | {
+        progress: number
+        priority: number
+        durationPercent: number
+        progressPercent: number
+        balancePercent: number
+        durationExists: boolean
+      }
+    | undefined
 }
 
 function serialize (tasks: Task[]): string {
@@ -82,17 +94,15 @@ function serialize (tasks: Task[]): string {
 function deserialize (storedString: string): Task[] {
   const storedTasks = superjson.parse<SerializedTask[]>(storedString)
   if (storedTasks.length > 0) {
-    console.log(storedTasks)
     return storedTasks.map(task => {
-      console.log(task)
       const { start, end, duration, recurrence, ...rest } = task
 
       return {
         ...rest,
         start: DateTime.fromJSDate(start),
         end: DateTime.fromJSDate(end),
-        duration: Duration.fromISO(duration),
-        recurrence: task.recurrence ? RRule.fromString(recurrence) : undefined
+        duration: duration ? Duration.fromISO(duration) : undefined,
+        recurrence: recurrence ? RRule.fromString(recurrence) : undefined
       }
     })
   }
@@ -115,8 +125,9 @@ function save (tasks: Task[]) {
   if (typeof window !== 'undefined') {
     localStorage.setItem('tasks', serialize(tasks))
     console.log('SAVED')
-  }
+  } else {
   console.log('NOT SAVED')
+  }
 }
 
 export const useTaskStore = create<TaskState>()((set, get) => ({
@@ -147,34 +158,27 @@ export const useTaskStore = create<TaskState>()((set, get) => ({
   getTask: (id: string) => {
     return TaskSchema.parse(get().tasks.find(task => task.id === id))
   },
-  getTaskStats: (id: string) => {
-    const task = get().tasks.find(task => task.id === id)
-    if (task) {
-      const { start, end, duration, progress } = task
-      let balancePercent
-      let durationPercent
-      let progressPercent
-
-      if (duration) {
-        const diff = end.diff(start).toMillis()
-        const durationMillis = duration.toMillis()
-        const progressMillis = progress * durationMillis
-
-        progressPercent = Math.max(Math.floor((progressMillis / diff) * 100), 0)
-        durationPercent = Math.floor(
-          (durationMillis / diff - progressPercent / 100) * 100
-        )
-        balancePercent = 100 - progressPercent - durationPercent
-      } else {
-        progressPercent = Math.max(Math.floor(progress * 100), 0)
-        durationPercent = 0
-        balancePercent = 100 - progressPercent
+  sortTasks(method: string){
+    console.log("sorting")
+    set(state => ({
+      tasks: state.tasks.sort((a, b)=>{ 
+      const aImportance = calculateImportance(a)
+      const bImportance = calculateImportance(b) 
+      
+      if (aImportance > bImportance ){
+        return -1
+      } else if (aImportance < bImportance){
+        return 1
       }
-      return { progress, 
-        progressPercent, durationPercent, balancePercent, durationExists: !!duration }
-    }
-    return undefined
-
+      return 0
+  
+      })
+    }))
+    save(get().tasks)
+  },
+  getTaskStats: (id: string) => {
+    const task = get().tasks.find(task => task.id === id) as Task
+    return calculateTaskStats(task)
   }
 }))
 
@@ -186,4 +190,78 @@ export const useHasHydrated = () => {
   }, [])
 
   return hasHydrated
+}
+
+export function useImportance (id: string): number {
+  const getTask = useTaskStore(state => state.getTask)
+  const task = getTask(id)
+  if (task){
+    return calculateImportance(task)
+  } else {
+    return 0
+  }
+  
+}
+
+
+export function calculateImportance(task: Task){
+  const taskStats = calculateTaskStats(task)
+  if (taskStats) {
+    const {
+      progressPercent,
+      durationPercent,
+      balancePercent,
+      progress,
+      priority,
+      durationExists
+    } = taskStats
+    if (durationExists) {
+
+      const effectiveProgressLeft =
+        (100 - (durationPercent + progressPercent + progressPercent)) / 100
+      const importance = priority * effectiveProgressLeft
+      return clamp(effectiveProgressLeft * priority, 0, 1)
+    } else {
+      const effectiveProgressLeft = (100 - progressPercent) / 100
+      const importance = priority * effectiveProgressLeft
+      return clamp(importance, 0, 1)
+    }
+    
+  } else {
+    return 0
+  }
+}
+
+export function calculateTaskStats(task: Task){
+  if (task) {
+    const { start, end, duration, progress, priority } = task
+    let balancePercent
+    let durationPercent
+    let progressPercent
+
+    if (duration) {
+      const diff = end.diff(start).toMillis()
+      const durationMillis = duration.toMillis()
+      const progressMillis = progress * durationMillis
+
+      progressPercent = Math.max(Math.floor((progressMillis / diff) * 100), 0)
+      durationPercent = Math.floor(
+        (durationMillis / diff - progressPercent / 100) * 100
+      )
+      balancePercent = 100 - progressPercent - durationPercent
+    } else {
+      progressPercent = Math.max(Math.floor(progress * 100), 0)
+      durationPercent = 0
+      balancePercent = 100 - progressPercent
+    }
+    return {
+      progress,
+      priority,
+      progressPercent,
+      durationPercent,
+      balancePercent,
+      durationExists: !!duration
+    }
+  }
+  return undefined
 }

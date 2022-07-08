@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Task, useTaskStore } from '../hooks'
 import { parseInput } from '../utils/nlp'
 import Modal from './modal'
+import Slider from './slider';
 const { DateTime, Duration } = require('luxon')
 
 export default function NewTask ({
@@ -12,6 +13,7 @@ export default function NewTask ({
   const addTask = useTaskStore(state => state.addTask)
   const [task, setTask] = useState<Task | undefined>(undefined)
   const [strInput, setStrInput] = useState<string>('')
+  const [priorityInput, setPriorityInput] = useState<number>(0)
 
   const newTaskButton = (
     <button className='fixed bottom-5 right-5 lg:static rounded-2xl p-2 m-2 bg-blue-500'>New Task</button>
@@ -41,15 +43,8 @@ export default function NewTask ({
         <div className='w-full h-full flex flex-col justify-start items-center'>
           <input className="border-slate-500 border-2 block w-5/6 p-2 rounded-xl" value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="..."></input>
           {task && 
-            <div className="text-left p-2">
-              <h1><b>Title</b>: {task.title}</h1>
-              <h2><b>Desc</b>: {task.description}</h2>
-              <h3><b>Start</b>: {task.start && task.start.toLocaleString()}</h3>
-              <h3><b>End</b>: {task.end && task.end.toLocaleString()}</h3>
-              <h3><b>Duration</b>: {task.duration && JSON.stringify(task.duration.toObject())}</h3>
-              <h3><b>Progress</b>: {task.progress}</h3>
-              <h3><b>Priority</b>: {task.priority}</h3>
-              <h3><b>Recurrence</b>: {task.recurrence && task.recurrence?.toText()}</h3>
+            <div className="w-full p-2">
+              <Slider />
             </div>
           }
         </div>

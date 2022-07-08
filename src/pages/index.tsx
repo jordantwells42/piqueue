@@ -15,7 +15,7 @@ import TaskStack from '../components/taskstack'
 
 const Home: NextPage = () => {
 
-  
+  const sortTasks = useTaskStore(state => state.sortTasks)
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const addTask = useTaskStore(state => state.addTask)
 
@@ -32,6 +32,7 @@ const Home: NextPage = () => {
     }
     addTask(exampleTask)
   }
+  //<button className='fixed bottom-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={() => sortTasks("s")}>Sort</button>
   return (
     <>
       <Head>
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
         <div>
         <button className='fixed bottom-5 left-5 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={addDummyTask}>Add task</button>
         <NewTask setOpen={setModalOpen} />
+        
         </div>
       </div>
       </div>
