@@ -49,10 +49,10 @@ const Home: NextPage = () => {
         {/*<div className="h-20 w-full flex flex-row">{[0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05].map(score => (<div key={score} className={importanceToColor(score) + " h-30 w-full"}><p className="text-white">White</p><p className="text-black">Black </p></div>))}</div>
          */}
         <TaskStack />
-        <div className="flex flex-col items-center justify-center">
-        <button onClick={addDummyTask}>Add task</button>
+        
+        <button className='rounded-2xl p-2 m-2 bg-pink-500' onClick={addDummyTask}>Add task</button>
         <NewTask setOpen={setModalOpen} />
-        </div>
+        
       </div>
     </>
   )

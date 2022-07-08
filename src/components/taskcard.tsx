@@ -12,9 +12,11 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   const getTask = useTaskStore(state => state.getTask)
   const [apidx, setApidx] = useState(idx)
 
+  const stackSize = 3
+
   const styles = useSpring({
-    to: { marginTop: Math.min(idx, 2) * 50, zIndex: 3 - Math.min(idx, 2) },
-    from: { marginTop: -1000, zIndex: 3 - Math.min(idx, 2) },
+    to: { marginTop: Math.min(idx, stackSize-1) * 10, zIndex: stackSize + 1 - idx },
+    from: { marginTop: -50  , zIndex: stackSize + 1 - idx},
     config: config.wobbly
   })
 
@@ -35,7 +37,7 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   return (
     <animated.div
       style={styles}
-      className='absolute w-full h-full flex flex-col justify-start items-center'
+      className='absolute  w-full h-auto flex flex-col justify-start items-center'
       key={task.id}
     >
       <div
