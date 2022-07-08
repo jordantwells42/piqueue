@@ -14,7 +14,7 @@ export default function NewTask ({
   const [strInput, setStrInput] = useState<string>('')
 
   const newTaskButton = (
-    <button className='rounded-2xl p-2 m-2 bg-blue-500'>New Task</button>
+    <button className='fixed bottom-5 right-5 lg:static rounded-2xl p-2 m-2 bg-blue-500'>New Task</button>
   )
 
   function handleSubmit () {
