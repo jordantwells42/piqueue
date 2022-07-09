@@ -41,7 +41,7 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
     setTask(gotTask)
   }, [id, getTask])
 
-  if (!windowSize || !windowSize.width) { return }
+  if (!windowSize || !windowSize.width) { return <></> }
 
   function handleAdd () {
     if (!task) throw 'cannot update nonexistant task'
