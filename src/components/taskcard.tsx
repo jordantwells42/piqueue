@@ -84,12 +84,12 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
       <div
         className={
           importanceToColor(importance) +
-          ` w-full max-w-4xl aspect-[0.7143] max-h-[50%] sm:w-full sm:min-h-96 h-auto sm:aspect-auto rounded-xl ` +
+          ` w-5/6 max-w-4xl aspect-[0.7143] max-h-[50%] sm:w-full sm:min-h-96 h-auto sm:aspect-auto rounded-xl ` +
           ' border-4 border-pico-dark-blue flex flex-col justify-content items-center text-pico-black'
         }
       >
         <div className='w-full flex flex-col'>
-          <div className='border-b-4 border-pico-dark-blue w-full flex flex-row justify-center items-center font-bold text-center'>
+          <div className='border-b-4 border-pico-dark-blue w-full flex flex-row justify-center items-center  text-center'>
             <h1 className='p-2 text-2xl text-center max-w-prose'>{task.title}</h1>
           </div>
           <div className=' w-full p-5 flex flex-col items-center justify-between pt-5 pb-3 '>

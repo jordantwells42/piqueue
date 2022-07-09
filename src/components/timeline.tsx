@@ -23,7 +23,7 @@ export default function Timeline ({
   }
 
   return (
-    <div className='flex flex-col w-full justify-end items-center text-sm md:text-base py-5 gap-2 md:gap-4 font-bold'>
+    <div className='flex flex-col w-full justify-end items-center text-sm md:text-base py-5 gap-2 md:gap-4 '>
       
         <div className='w-full max-w-lg h-10 flex border-4 border-pico-dark-blue rounded-full p-1 flex-row bg-white bg-opacity-40'>
           <div

@@ -16,7 +16,7 @@ export default function NewTask ({
   const [priorityInput, setPriorityInput] = useState<number>(0)
 
   const newTaskButton = (
-    <button className='fixed border-4 border-pico-dark-blue bottom-16 right-5 lg:bottom-24 lg:right-64 rounded-2xl p-2 m-2 text-pico-white font-bold bg-pico-mid-blue'>new task</button>
+    <button className='fixed border-4 border-pico-dark-blue bottom-16 right-5 lg:bottom-24 lg:right-64 rounded-2xl p-2 m-2 text-pico-white  bg-pico-mid-blue'>new task</button>
   )
 
   function handleSubmit () {
@@ -48,21 +48,21 @@ export default function NewTask ({
       setOpen={setOpen}
     >
       <div className='font-main overflow-y-scroll  scrollbar-hide w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
-        <h1 className='text-2xl font-bold'>new task</h1>
+        <p className='text-2xl '>new task</p>
         <div className="flex flex-col justify-center items-center">
-        <p className='italic text-sm'>create simple tasks <b className="text-green-600">today</b> powered by NLP</p>
-        <p className='italic text-sm'>create new recurring tasks <b className="text-blue-400">every</b> day, <b className='text-red-400'>takes</b> 5 seconds</p>
+        <p className='text-sm text-pico-dark-grey'>create simple tasks <i className="text-green-600">today&nbsp;</i> powered by NLP</p>
+        <p className='text-sm text-pico-dark-grey'>create new recurring tasks <i className="text-blue-400">every&nbsp;</i> day, <i className='text-red-400'>takes&nbsp;</i> 5 seconds</p>
         </div>
         <div className='w-full h-full flex flex-col justify-start items-center'>
           <input className="border-slate-500 border-2 block w-5/6 p-2 rounded-xl" value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="..."></input>
           {task && 
-            <div className="w-5/6 p-2 flex-col flex justify-center text-left">
+            <div className="w-5/6 p-2 flex-col flex justify-center text-left text-sm text-pico-dark-grey">
               <Slider value = {priorityInput} setValue={setPriorityInput}/>
               
-              <h1><b>Title:</b> {task.title}</h1>
-              <h2><b>From:</b> {task.start ? task.start.toLocaleString() : "Now"} to {task.end.toLocaleString()}</h2>
-              {task.recurrence && <h2><b>Recurring:</b> {task.recurrence.toText()}</h2>}
-              {task.duration && <h2><b>Duration:</b> {task.duration.toHuman()}</h2>}
+              <p><i className='text-pico-black'>Title:&nbsp;</i> {task.title}</p>
+              <p><i className='text-pico-black'>From:&nbsp;</i> {task.start ? task.start.toLocaleString() : "Now"} to {task.end.toLocaleString()}</p>
+              {task.recurrence && <p><i className='text-pico-black'>Recurring:&nbsp;</i> {task.recurrence.toText()}</p>}
+              {task.duration && <p><i className='text-pico-black'>Duration:&nbsp;</i> {task.duration.toHuman()}</p>}
             </div>
           }
         </div>

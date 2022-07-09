@@ -51,10 +51,10 @@ const Home: NextPage = () => {
       <div className='font-main w-screen h-screen bg-pico-lavender'>
       <div
         style={{ filter: modalOpen ? 'brightness(0.4)' : 'brightness(1.0)' }}
-        className='w-full h-full flex flex-col justify-start items-center py-10 overflow-x-hidden
+        className='w-full h-full flex flex-col justify-start font-main items-center py-10 overflow-x-hidden
           '
       >
-        <h1 className='text-5xl font-bold text-pico-white bg-pico-lavender w-2/3 lg:w-1/3 text-center rounded-full  bg-pico-mid-blue p-3'>piqueue</h1>
+        <h1 className='text-5xl  text-pico-white  w-2/3 lg:w-1/3 text-center rounded-full p-3 font-main'>piqueue</h1>
         
         {/*<div className="h-20 w-full flex flex-row">{[0.05, 0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 0.95, 1.05].map(score => (<div key={score} className={importanceToColor(score) + " h-30 w-full"}><p className="text-pico-white">White</p><p className="text-black">Black </p></div>))}</div>
          */}

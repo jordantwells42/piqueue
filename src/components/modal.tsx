@@ -32,16 +32,16 @@ export default function Modal ({
               <div className='w-full h-full  rounded-t-2xl flex flex-col justify-start md:justify-center items-center'>
                 {children}
               </div>
-                <div className='rounded-b-2xl w-full flex font-bold flex-row justify-end items-start text-pico-white'>
+                <div className='rounded-b-2xl w-full flex  flex-row justify-end items-start text-pico-white font-main'>
                   <button
-                    className='rounded-2xl p-2 m-2  border-4 border-pico-dark-blue bg-pico-pink'
+                    className='rounded-2xl p-2 m-2 font-main border-4 border-pico-dark-blue bg-pico-pink'
                     onClick={() => [closePortal(), clearState && clearState()]} 
                   >
                     close me
                   </button>
                   {onSubmit && (
                     <button
-                      className='rounded-2xl p-2 m-2 border-4 border-pico-dark-blue bg-pico-mid-blue'
+                      className='rounded-2xl p-2 m-2 font-main border-4 border-pico-dark-blue bg-pico-mid-blue'
                       onClick={() => [onSubmit(), clearState && clearState(), closePortal()]}
                     >
                       submit

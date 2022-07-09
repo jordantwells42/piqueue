@@ -24,7 +24,7 @@ module.exports = {
         'pico-light-peach': '#FFCCAA'
       },
       fontFamily: {
-        "main": ['"Lilita One"', 'cursive'],
+        "main": ['"Lilita One"'],
       }
     }
   },
