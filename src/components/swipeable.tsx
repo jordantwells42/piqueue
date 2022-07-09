@@ -19,12 +19,15 @@ export default function Swipeable ({
     scale: 1
   }))
 
+  
+
   const bind = useGesture(
     {
       onDrag:
         // @ts-ignore
         ({ down, movement: [mx], direction: [dx], velocity: [vx] }) => {
-          const trigger = Math.abs(mx) + Math.abs(vx) > 500
+          if (!windowSize || !windowSize.width) {return}
+          const trigger = Math.abs(mx) + Math.abs(vx) > windowSize.width / 2
           // @ts-ignore
           api.start(() => {
             const x = !down?0:trigger?mx*5:mx
@@ -51,7 +54,8 @@ export default function Swipeable ({
         // @ts-ignore
         velocity: [vx]
       }) => {
-        const trigger = Math.abs(mx) + Math.abs(vx) > 500
+        if (!windowSize || !windowSize.width) {return}
+        const trigger = Math.abs(mx) + Math.abs(vx) > windowSize.width / 2
         // @ts-ignore
         api.start(() => {
           function handleTrigger () {
