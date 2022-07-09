@@ -7,10 +7,16 @@ import { nanoid } from 'nanoid'
 import DateRange from './daterange'
 import Buttons from './buttons'
 import { useSpring, animated, config } from 'react-spring'
+import Swipeable from './swipeable'
+const { DateTime, Duration } = require('luxon')
 
 export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
   const getTask = useTaskStore(state => state.getTask)
-  const task = getTask(id)
+  const [task, setTask] = useState<Task | null>(null)
+
+  const addTask = useTaskStore(state => state.addTask)
+  const updateTask = useTaskStore(state => state.updateTask)
+  const deleteTask = useTaskStore(state => state.deleteTask)
   const importance = useImportance(id)
   console.log("hello?", importance)
   const stackSize = 3
@@ -26,15 +32,49 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
     if (!gotTask) throw 'task with that id does not exist'
   }, [id, getTask, importance])
 
+  useEffect(() => {
+    const gotTask = getTask(id)
+    if (!gotTask) throw 'task with that id does not exist'
+    setTask(gotTask)
+  }, [id, getTask])
+
+  function handleAdd () {
+    if (!task) throw 'cannot update nonexistant task'
+    const newTask = TaskSchema.parse({ ...task, progress: task.progress + 0.05 })
+    setTask(newTask)
+    updateTask(newTask)
+  }
+
+  function handleDelete () {
+    if (!task) throw 'cannot delete nonexistant task'
+    deleteTask(task.id)
+  }
+
+  function handleFinish () {
+    if (!task) throw 'cannot finish nonexistant task'
+    if (task.recurrence) {
+      const newTask = TaskSchema.parse({
+        ...task,
+        progress: 0,
+        id: nanoid(),
+        start: DateTime.now(),
+        end: DateTime.fromJSDate(task.recurrence.after(task.end.toJSDate()))
+      })
+      addTask(newTask)
+    }
+    deleteTask(task.id)
+  }
   if (!task) {
     return <p>Loading...</p>
   }
 
+  
+
   return (
+    <Swipeable style={styles} onSwipeLeft={handleDelete} onSwipeRight={handleAdd}>
     <animated.div
       style={styles}
       className='absolute w-full h-auto flex flex-col justify-start items-center'
-      key={task.id}
     >
       <div
         className={
@@ -53,11 +93,12 @@ export default function TaskCard ({ id, idx }: { id: string; idx: number }) {
             </h2>
             <DateRange id={task.id} />
             <Timeline id={task.id} />
-            <Buttons id={task.id} />
+            <Buttons handleAdd={handleAdd} handleDelete={handleDelete} handleFinish={handleFinish} id={task.id} />
             <h1>Priority: {Math.round(task.priority* 100)}</h1>
           </div>
         </div>
       </div>
     </animated.div>
+    </Swipeable>
   )
 }

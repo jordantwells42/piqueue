@@ -16,6 +16,7 @@
     "@trpc/next": "^9.25.3",
     "@trpc/react": "^9.25.3",
     "@trpc/server": "^9.25.3",
+    "@use-gesture/react": "^10.2.16",
     "chrono-node": "^2.3.9",
     "luxon": "^2.4.0",
     "nanoid": "^4.0.0",

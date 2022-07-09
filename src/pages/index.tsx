@@ -11,6 +11,7 @@ const { DateTime, Duration } = require('luxon')
 import { parseInput } from '../utils/nlp'
 import { nanoid } from 'nanoid'
 import TaskStack from '../components/taskstack'
+import Swipeable from '../components/swipeable'
 
 /*
 TODO:
@@ -50,7 +51,7 @@ const Home: NextPage = () => {
       <div className='w-screen h-screen bg-slate-700'>
       <div
         style={{ filter: modalOpen ? 'brightness(0.4)' : 'brightness(1.0)' }}
-        className='w-full h-full flex flex-col justify-start items-center py-10
+        className='w-full h-full flex flex-col justify-start items-center py-10 overflow-x-hidden
          text-white border-white'
       >
         <h1 className='text-4xl font-bold'>Tasks</h1>
@@ -60,9 +61,7 @@ const Home: NextPage = () => {
         <TaskStack />
         
         <button className='fixed bottom-16 lg:static rounded-2xl p-2 m-2 bg-pink-500' onClick={addDummyTask}>Example task</button>
-        <NewTask setOpen={setModalOpen} />
-        
-        
+        <NewTask setOpen={setModalOpen} />    
       </div>
       </div>
     </>
