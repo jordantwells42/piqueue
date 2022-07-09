@@ -27,7 +27,7 @@ export default function Swipeable ({
         // @ts-ignore
         ({ down, movement: [mx], direction: [dx], velocity: [vx] }) => {
           if (!windowSize || !windowSize.width) {return}
-          const trigger = Math.abs(mx) + Math.abs(vx) > windowSize.width / 2
+          const trigger = Math.abs(mx)  > windowSize.width / 2
           // @ts-ignore
           api.start(() => {
             const x = !down?0:trigger?mx*5:mx
@@ -40,7 +40,7 @@ export default function Swipeable ({
               x,
               rotate,
               scale,
-              config: config.gentle
+              config: config.wobbly
             }
           })
         },
@@ -55,7 +55,7 @@ export default function Swipeable ({
         velocity: [vx]
       }) => {
         if (!windowSize || !windowSize.width) {return}
-        const trigger = Math.abs(mx) + Math.abs(vx) > windowSize.width / 2
+        const trigger = Math.abs(mx) > windowSize.width / 2
         // @ts-ignore
         api.start(() => {
           function handleTrigger () {
@@ -77,7 +77,8 @@ export default function Swipeable ({
           return {
             x: 0,
             rotate: 0,
-            scale: 1
+            scale: 1,
+            config: config.gentle
           }
 
 
