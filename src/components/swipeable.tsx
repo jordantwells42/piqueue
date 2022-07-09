@@ -30,8 +30,9 @@ export default function Swipeable ({
           const trigger = Math.abs(mx)  > windowSize.width / 2
           // @ts-ignore
           api.start(() => {
+            if (!windowSize || !windowSize.width) {return}
             const x = !down?0:trigger?mx*5:mx
-            const rotate = down ? mx / 20 : 0
+            const rotate = !down ? 0 : (windowSize.width < 500) ? mx/20 : mx/50
             const scale = down ? 1.05 : 1
 
           

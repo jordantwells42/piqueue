@@ -16,7 +16,7 @@ export default function NewTask ({
   const [priorityInput, setPriorityInput] = useState<number>(0)
 
   const newTaskButton = (
-    <button className='fixed bottom-16 right-5 lg:static rounded-2xl p-2 m-2 bg-blue-500'>New Task</button>
+    <button className='fixed border-4 border-pico-dark-blue bottom-16 right-5 lg:bottom-24 lg:right-64 rounded-2xl p-2 m-2 text-pico-white font-bold bg-pico-mid-blue'>new task</button>
   )
 
   function handleSubmit () {
@@ -47,11 +47,11 @@ export default function NewTask ({
       button={newTaskButton}
       setOpen={setOpen}
     >
-      <div className='overflow-y-scroll scrollbar-hide w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
-        <h1 className='text-2xl font-bold'>New Task</h1>
+      <div className='font-main overflow-y-scroll  scrollbar-hide w-full p-2 h-full flex flex-col gap-6 justify-start items-center'>
+        <h1 className='text-2xl font-bold'>new task</h1>
         <div className="flex flex-col justify-center items-center">
-        <p className='italic text-sm'>Create simple tasks <b className="text-green-600">today</b> powered by NLP</p>
-        <p className='italic text-sm'>Create new recurring tasks <b className="text-blue-400">every</b> day, <b className='text-red-400'>takes</b> 5 seconds</p>
+        <p className='italic text-sm'>create simple tasks <b className="text-green-600">today</b> powered by NLP</p>
+        <p className='italic text-sm'>create new recurring tasks <b className="text-blue-400">every</b> day, <b className='text-red-400'>takes</b> 5 seconds</p>
         </div>
         <div className='w-full h-full flex flex-col justify-start items-center'>
           <input className="border-slate-500 border-2 block w-5/6 p-2 rounded-xl" value={strInput} onChange={e => {setStrInput(e.target.value);setTask(parseInput(e.target.value))}} placeholder="..."></input>

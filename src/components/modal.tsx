@@ -28,23 +28,23 @@ export default function Modal ({
             {button ? button : <button>Open Modal</button>}
           </div>
           {portal(
-            <div className='fixed top-0 text-sm md:text-base w-full h-auto max-h-[75%]  md:top-1/2 md:left-1/2 md:w-96 md:-mt-48 md:-ml-48'>
-              <div className='w-full h-full bg-slate-100 rounded-t-2xl flex flex-col justify-start md:justify-center items-center'>
+            <div className='border-4 rounded-2xl border-pico-dark-blue bg-slate-100  fixed top-5 text-sm md:text-base w-full h-auto max-h-[75%]  md:top-1/2 md:left-1/2 md:w-96 md:-mt-48 md:-ml-48'>
+              <div className='w-full h-full  rounded-t-2xl flex flex-col justify-start md:justify-center items-center'>
                 {children}
               </div>
-                <div className='rounded-b-2xl w-full bg-slate-100 flex font-bold flex-row justify-end items-start text-white'>
+                <div className='rounded-b-2xl w-full flex font-bold flex-row justify-end items-start text-pico-white'>
                   <button
-                    className='rounded-2xl p-2 m-2  bg-slate-400'
+                    className='rounded-2xl p-2 m-2  border-4 border-pico-dark-blue bg-pico-pink'
                     onClick={() => [closePortal(), clearState && clearState()]} 
                   >
-                    Close me
+                    close me
                   </button>
                   {onSubmit && (
                     <button
-                      className='rounded-2xl p-2 m-2 bg-blue-400'
+                      className='rounded-2xl p-2 m-2 border-4 border-pico-dark-blue bg-pico-mid-blue'
                       onClick={() => [onSubmit(), clearState && clearState(), closePortal()]}
                     >
-                      Submit
+                      submit
                     </button>
                   )}
                 

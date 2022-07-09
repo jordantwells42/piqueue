@@ -7,19 +7,19 @@ export default function Buttons({id, handleAdd, handleDelete, handleFinish}:{id:
             <div className='py-2 flex-row justify-center items-center'>
             <button
               onClick={handleAdd}
-              className='rounded border-slate-900 border-2 m-1 p-1'
+              className='rounded border-pico-dark-blue border-2 m-1 p-1'
             >
               Progress
             </button>
             <button
               onClick={handleDelete}
-              className='rounded border-slate-900 border-2 m-1 p-1'
+              className='rounded border-pico-dark-blue border-2 m-1 p-1'
             >
               Delete
             </button>
             <button
               onClick={handleFinish}
-              className='rounded border-slate-900 border-2 m-1 p-1'
+              className='rounded border-pico-dark-blue border-2 m-1 p-1'
             >
               Finish
             </button>
