@@ -34,14 +34,14 @@ export default function Modal ({
               </div>
                 <div className='rounded-b-2xl w-full flex  flex-row justify-end items-start text-pico-white font-main'>
                   <button
-                    className='rounded-2xl p-2 m-2 font-main border-4 border-pico-dark-blue bg-pico-pink'
+                    className='rounded-2xl p-2 m-2 font-main border-2 border-pico-dark-blue bg-pico-pink'
                     onClick={() => [closePortal(), clearState && clearState()]} 
                   >
                     close me
                   </button>
                   {onSubmit && (
                     <button
-                      className='rounded-2xl p-2 m-2 font-main border-4 border-pico-dark-blue bg-pico-mid-blue'
+                      className='rounded-2xl p-2 m-2 font-main border-2 border-pico-dark-blue bg-pico-mid-blue'
                       onClick={() => [onSubmit(), clearState && clearState(), closePortal()]}
                     >
                       submit

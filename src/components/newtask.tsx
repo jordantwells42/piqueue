@@ -16,7 +16,7 @@ export default function NewTask ({
   const [priorityInput, setPriorityInput] = useState<number>(0)
 
   const newTaskButton = (
-    <button className='fixed border-4 border-pico-dark-blue bottom-16 right-5 lg:bottom-24 lg:right-64 rounded-2xl p-2 m-2 text-pico-white  bg-pico-mid-blue'>new task</button>
+    <button className='fixed border-2 border-pico-dark-blue bottom-16 right-5 lg:bottom-24 lg:right-64 rounded-2xl p-2 m-2 text-pico-white  bg-pico-mid-blue'>new task</button>
   )
 
   function handleSubmit () {
